@@ -1,12 +1,16 @@
 package ru.alexkrasnovasoft.algorithms.lesson3.queue;
 
-public interface Queue<T> {
+public interface Queue<E> {
 
-    void add(T element);
+    void insert(E value);
 
-    T poll();
+    E remove();
 
-    T peek();
+    E peekFront();
+
+    int size();
+
+    boolean isFull();
 
     boolean isEmpty();
 
