@@ -1,5 +1,7 @@
 package ru.alexkrasnovasoft.algorithms.lesson4;
 
+import ru.alexkrasnovasoft.algorithms.lesson3.deque.Deque;
+import ru.alexkrasnovasoft.algorithms.lesson4.deque.LinkedListDequeImpl;
 import ru.alexkrasnovasoft.algorithms.lesson4.lindedlist.DoublyLinkedList;
 import ru.alexkrasnovasoft.algorithms.lesson4.lindedlist.DoublyLinkedListImpl;
 import ru.alexkrasnovasoft.algorithms.lesson4.lindedlist.LinkedList;
@@ -10,6 +12,28 @@ public class Application {
 
         testSinglyLinkedList();
         testDoublyLinkedList();
+        testLinkedListDeque();
+    }
+
+    private static void testLinkedListDeque() {
+        System.out.println("Тестирование двусторонней очереди:");
+
+        Deque<Integer> deque = new LinkedListDequeImpl<>();
+        deque.insert(3);
+        deque.insert(4);
+        deque.display();
+        deque.insertRight(5);
+        deque.insertRight(6);
+        deque.insertLeft(2);
+        deque.insertLeft(1);
+        deque.display();
+        System.out.println("deque.remove() = " + deque.remove());
+        System.out.println("deque.removeRight() = " + deque.removeRight());
+        System.out.println("deque.removeLeft() = " + deque.removeLeft());
+        System.out.println("deque.peekRight() = " + deque.peekRight());
+        System.out.println("deque.peekLeft() = " + deque.peekLeft());
+        deque.display();
+        System.out.println();
     }
 
     private static void testDoublyLinkedList() {
@@ -30,6 +54,8 @@ public class Application {
         System.out.println("doublyLinkedList.remove(3) = " + doublyLinkedList.remove(3));
         doublyLinkedList.display();
         System.out.println("doublyLinkedList.getLast() = " + doublyLinkedList.getLast());
+        System.out.println("doublyLinkedList.removeLast() = " + doublyLinkedList.removeLast());
+        System.out.println("doublyLinkedList.removeLast() = " + doublyLinkedList.removeLast());
         doublyLinkedList.display();
         System.out.println();
     }

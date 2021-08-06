@@ -32,6 +32,21 @@ public class DoublyLinkedListImpl<E> extends SinglyLinkedListImpl<E> implements 
     }
 
     @Override
+    public E removeLast() {
+        if (isEmpty()) {
+            throw new IllegalStateException("Список пуст.");
+        }
+
+        Node<E> removedNode = lastElement;
+        lastElement = removedNode.previous;
+        removedNode.previous = null;
+        lastElement.next = null;
+
+        size--;
+        return removedNode.item;
+    }
+
+    @Override
     public E removeFirst() {
         E removedValue = super.removeFirst();
         if (isEmpty()) {

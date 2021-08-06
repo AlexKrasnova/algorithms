@@ -6,5 +6,6 @@ public interface DoublyLinkedList<E> extends LinkedList<E> {
 
     E getLast();
 
+    E removeLast();
 
 }
