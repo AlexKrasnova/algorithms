@@ -1,6 +1,9 @@
 package ru.alexkrasnovasoft.algorithms.lesson4.lindedlist;
 
-public interface LinkedList<E> {
+import java.util.Iterator;
+import java.util.function.Consumer;
+
+public interface LinkedList<E> extends Iterable<E> {
 
     void insertFirst(E value);
 

@@ -7,12 +7,18 @@ import ru.alexkrasnovasoft.algorithms.lesson4.lindedlist.DoublyLinkedListImpl;
 import ru.alexkrasnovasoft.algorithms.lesson4.lindedlist.LinkedList;
 import ru.alexkrasnovasoft.algorithms.lesson4.lindedlist.SinglyLinkedListImpl;
 
+import java.util.Iterator;
+import java.util.List;
+
+
 public class Application {
     public static void main(String[] args) {
 
         testSinglyLinkedList();
         testDoublyLinkedList();
         testLinkedListDeque();
+
+
     }
 
     private static void testLinkedListDeque() {
@@ -48,6 +54,11 @@ public class Application {
         doublyLinkedList.insertLast(6);
         doublyLinkedList.insertLast(7);
         doublyLinkedList.display();
+        System.out.println("Тестирование итератора:");
+        for (Integer element : doublyLinkedList) {
+            System.out.println(element);
+        }
+        System.out.println("Окончание тестирования итератора.");
 
         System.out.println("doublyLinkedList.contains(6) = " + doublyLinkedList.contains(6));
         System.out.println("doublyLinkedList.removeFirst() = " + doublyLinkedList.removeFirst());
@@ -71,6 +82,12 @@ public class Application {
         list.insertFirst(2);
         list.insertFirst(1);
         list.display();
+
+        System.out.println("Тестирование итератора:");
+        for (Integer element : list) {
+            System.out.println(element);
+        }
+        System.out.println("Окончание тестирования итератора.");
 
         System.out.println("list.contains(3) = " + list.contains(3));
         list.display();

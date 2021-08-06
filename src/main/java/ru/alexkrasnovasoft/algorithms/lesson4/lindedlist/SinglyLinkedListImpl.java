@@ -1,5 +1,7 @@
 package ru.alexkrasnovasoft.algorithms.lesson4.lindedlist;
 
+import java.util.Iterator;
+
 public class SinglyLinkedListImpl<E> implements LinkedList<E> {
 
     protected Node<E> firstElement;
@@ -108,5 +110,31 @@ public class SinglyLinkedListImpl<E> implements LinkedList<E> {
         }
         sb.append("]");
         return sb.toString();
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return new LinkedListIterator();
+    }
+
+
+    private class LinkedListIterator implements Iterator<E> {
+
+        private Node<E> current;
+
+        public LinkedListIterator() {
+            current = new Node(null, firstElement);
+        }
+
+        @Override
+        public boolean hasNext() {
+            return current.next != null;
+        }
+
+        @Override
+        public E next() {
+            current = current.next;
+            return current.item;
+        }
     }
 }
