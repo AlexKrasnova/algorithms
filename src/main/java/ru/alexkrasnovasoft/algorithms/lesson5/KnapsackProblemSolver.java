@@ -38,7 +38,7 @@ public class KnapsackProblemSolver {
         return mostValuableCombination;
     }
 
-    public static Integer getMass(Set<Thing> combination) {
+    private static Integer getMass(Set<Thing> combination) {
         Integer mass = 0;
         for (Thing thing : combination) {
             mass = mass + thing.getMass();
@@ -54,7 +54,7 @@ public class KnapsackProblemSolver {
         return price;
     }
 
-    public static Set<Set<Thing>> getAllCombinations(List<Thing> list) {
+    private static Set<Set<Thing>> getAllCombinations(List<Thing> list) {
         Set<Set<Thing>> results = new HashSet<>();
         for (int i = 1; i < list.size(); i++) {
             results.addAll(getCombinations(i, list));
@@ -62,7 +62,10 @@ public class KnapsackProblemSolver {
         return results;
     }
 
-    public static Set<Set<Thing>> getCombinations(int k, List<Thing> list) {
+    private static Set<Set<Thing>> getCombinations(int k, List<Thing> list) {
+        if (k > list.size()) {
+            throw new IllegalArgumentException();
+        }
         Set<Set<Thing>> results = new HashSet<>();
         if (k == 0) {
             return results;
