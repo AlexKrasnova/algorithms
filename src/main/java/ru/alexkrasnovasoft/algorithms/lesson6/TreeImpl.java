@@ -1,9 +1,6 @@
 package ru.alexkrasnovasoft.algorithms.lesson6;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.Stack;
+import java.util.*;
 
 public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
 
@@ -83,7 +80,7 @@ public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
 
         if (parent == null) {
             root = node;
-        } else if(parent.isLeftChild(value)) {
+        } else if (parent.isLeftChild(value)) {
             parent.setLeftChild(node);
         } else {
             parent.setRightChild(node);
@@ -98,7 +95,7 @@ public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
         Node<E> removedNode = nodeAndParent.current;
         Node<E> parentNode = nodeAndParent.parent;
 
-        if(removedNode == null) {
+        if (removedNode == null) {
             return false;
         }
 
@@ -147,7 +144,7 @@ public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
     }
 
     private void removeNodeWithOneChild(Node<E> removedNode, Node<E> parentNode) {
-        Node<E> childNode =  removedNode.getLeftChild() != null
+        Node<E> childNode = removedNode.getLeftChild() != null
                 ? removedNode.getLeftChild()
                 : removedNode.getRightChild();
 
@@ -249,7 +246,7 @@ public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
     }
 
     private void inOrder(Node<E> current) {
-        if(current == null) {
+        if (current == null) {
             return;
         }
 
@@ -259,7 +256,7 @@ public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
     }
 
     private void postOrder(Node<E> current) {
-        if(current == null) {
+        if (current == null) {
             return;
         }
 
@@ -269,7 +266,7 @@ public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
     }
 
     private void preOrder(Node<E> current) {
-        if(current == null) {
+        if (current == null) {
             return;
         }
 
@@ -278,20 +275,57 @@ public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
         preOrder(current.getRightChild());
     }
 
+
     @Override
-    public boolean isBalanced(){
-        return isBalanced(root);
+    public boolean isBalanced() {
+        if (root == null) {
+            return true;
+        }
+        return isBalanced(root, 1);
     }
 
-    public boolean isBalanced(Node<E> node) {
-        return (node == null) ||
-                (isBalanced(node.getLeftChild()) &&
-                        isBalanced(node.getRightChild()) &&
-                        Math.abs(height(node.getLeftChild()) - height(node.getRightChild())) <= 1);
+    public boolean isBalanced(Node<E> node, Integer level) {
+
+        if (node == null) {
+            return true;
+        }
+
+        Set<Integer> leavesHeights = new HashSet<>();
+        leavesHeights.addAll(findAllLeavesHeights(node, leavesHeights, level));
+
+        Iterator<Integer> iter = leavesHeights.iterator();
+
+        int maxHeight = 0;
+        int minHeight = 0;
+        if (iter.hasNext()) {
+            maxHeight = iter.next();
+            minHeight = maxHeight;
+        }
+
+        while (iter.hasNext()) {
+            int current = iter.next();
+            if (current > maxHeight) {
+                maxHeight = current;
+            }
+            if (current < minHeight) {
+                minHeight = current;
+            }
+        }
+
+        return maxHeight - minHeight <= 1;
     }
 
-    private int height(Node<E> node) {
-        return node == null ? 0 : 1 + Math.max(height(node.getLeftChild()), height(node.getRightChild()));
+    private Set<Integer> findAllLeavesHeights(Node<E> node, Set<Integer> leavesHeights, int level) {
+        if (node != null && node.isLeaf()) {
+            leavesHeights.add(level);
+        } else {
+            if (node.getLeftChild() != null) {
+                findAllLeavesHeights(node.getLeftChild(), leavesHeights, level + 1);
+            }
+            if (node.getRightChild() != null) {
+                findAllLeavesHeights(node.getRightChild(), leavesHeights, level + 1);
+            }
+        }
+        return leavesHeights;
     }
-
 }
